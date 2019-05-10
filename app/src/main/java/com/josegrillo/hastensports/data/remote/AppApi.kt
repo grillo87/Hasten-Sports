@@ -1,6 +1,5 @@
 package com.josegrillo.hastensports.data.remote
 
-import android.content.Context
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
 import com.josegrillo.hastensports.BuildConfig
@@ -19,52 +18,29 @@ interface AppApi {
 
     companion object Factory {
 
-        fun create(context: Context): AppApi {
+        fun create(baseUrl: String): AppApi {
 
+            val httpClient = OkHttpClient.Builder()
 
-            val httpClient = setApiClient(context)
+            httpClient.addInterceptor(
+                LoggingInterceptor.Builder()
+                    .loggable(BuildConfig.API_DEBUG)
+                    .setLevel(Level.BODY)
+                    .setLevel(Level.HEADERS)
+                    .log(Platform.INFO)
+                    .request(BuildConfig.REQUEST_API_TAG)
+                    .response(BuildConfig.RESPONSE_API_TAG)
+                    .build()
+            )
 
             val retrofit = retrofit2.Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .baseUrl(BuildConfig.BASE_URL)
+                .client(httpClient.build())
+                .baseUrl(baseUrl)
                 .build()
 
             return retrofit.create(AppApi::class.java)
-        }
-
-
-        private fun setApiClient(context: Context): OkHttpClient? {
-
-            var client: OkHttpClient?
-
-            try {
-
-                client = OkHttpClient.Builder()
-                    .addInterceptor(
-                        LoggingInterceptor.Builder()
-                            .loggable(BuildConfig.API_DEBUG)
-                            .setLevel(Level.BASIC)
-                            .log(Platform.INFO)
-                            //.request(ConstantesApp.SOLICITUD_TAG)
-                            //.response(ConstantesApp.RESPUESTA_TAG)
-                            .build()
-                    )
-                    .build()
-
-
-            } catch (exception: Exception) {
-
-                client = null
-
-            }
-
-
-
-
-            return client
-
         }
 
     }
