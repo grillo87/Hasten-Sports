@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hasten Sports</string>
+    <string name="title_activity_players_list">PlayersListActivity</string>
 </resources>
