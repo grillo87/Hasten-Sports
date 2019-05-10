@@ -3,6 +3,7 @@ package com.josegrillo.hastensports.data.remote
 import android.content.Context
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
+import com.josegrillo.hastensports.BuildConfig
 import com.josegrillo.hastensports.domain.models.api.SportsModel
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -27,7 +28,7 @@ interface AppApi {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
-                //.baseUrl(BuildConfig.BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .build()
 
             return retrofit.create(AppApi::class.java)
@@ -43,7 +44,7 @@ interface AppApi {
                 client = OkHttpClient.Builder()
                     .addInterceptor(
                         LoggingInterceptor.Builder()
-                            .loggable(true)
+                            .loggable(BuildConfig.API_DEBUG)
                             .setLevel(Level.BASIC)
                             .log(Platform.INFO)
                             //.request(ConstantesApp.SOLICITUD_TAG)

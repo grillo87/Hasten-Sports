@@ -1,18 +1,35 @@
 package com.josegrillo.hastensports.views.ui.playersList
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
 import com.josegrillo.hastensports.R
+import com.josegrillo.hastensports.di.components.DaggerActivitiesComponent
+import com.josegrillo.hastensports.di.modules.ActivitiesModule
+import com.josegrillo.hastensports.di.modules.RemoteRepositoryModule
+import com.josegrillo.hastensports.views.base.BaseActivity
+import com.josegrillo.hastensports.views.contracts.PlayersListContract
+import javax.inject.Inject
 
-import kotlinx.android.synthetic.main.activity_players_list.*
+class PlayersListActivity : BaseActivity(), PlayersListContract.View {
 
-class PlayersListActivity : AppCompatActivity() {
+    @Inject
+    lateinit var presenter: PlayersListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_players_list)
+        super.onCreate(savedInstanceState)
 
+
+    }
+
+
+    override fun injectDependencies() {
+        val playersListComponent = DaggerActivitiesComponent.builder()
+            .activitiesModule(ActivitiesModule())
+            .remoteRepositoryModule(RemoteRepositoryModule(app))
+            .build()
+
+        playersListComponent.inject(this)
+        presenter.attach(this)
     }
 
 }

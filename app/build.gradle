@@ -18,6 +18,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", 'BASE_URL', "\"https://api.myjson.com/bins/\""
+            buildConfigField "boolean", 'API_DEBUG', "false"
+
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            buildConfigField "String", 'BASE_URL', "\"https://api.myjson.com/bins/\""
+            buildConfigField "boolean", 'API_DEBUG', "true"
+
         }
     }
 }
