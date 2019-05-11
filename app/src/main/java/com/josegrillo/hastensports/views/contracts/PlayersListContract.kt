@@ -11,6 +11,7 @@ class PlayersListContract {
         fun showLoading()
         fun hideLoading()
         fun displayError(error: Throwable?)
+        fun configureViewListeners()
 
 
     }

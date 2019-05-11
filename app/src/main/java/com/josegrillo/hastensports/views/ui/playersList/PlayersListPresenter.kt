@@ -21,6 +21,7 @@ class PlayersListPresenter @Inject constructor(val obtainSportsList: GetSportsLi
 
     override fun attach(view: PlayersListContract.View) {
         this.view = view
+        this.view.configureViewListeners()
         this.getSportsList()
     }
 
@@ -43,9 +44,12 @@ class PlayersListPresenter @Inject constructor(val obtainSportsList: GetSportsLi
                     else
                         this.view.displayError(null)
 
+                    this.view.hideLoading()
+
                 },
                 { error ->
                     this.view.displayError(error)
+                    this.view.hideLoading()
                 })
 
         subscriptions.add(subscribe)
