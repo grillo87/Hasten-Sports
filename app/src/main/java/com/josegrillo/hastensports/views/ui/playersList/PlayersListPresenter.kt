@@ -2,6 +2,7 @@ package com.josegrillo.hastensports.views.ui.playersList
 
 import com.josegrillo.hastensports.domain.models.mappers.sportModelToSportView
 import com.josegrillo.hastensports.domain.useCases.GetSportsList
+import com.josegrillo.hastensports.utils.Errors.NoDataFoundException
 import com.josegrillo.hastensports.views.contracts.PlayersListContract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -42,14 +43,14 @@ class PlayersListPresenter @Inject constructor(val obtainSportsList: GetSportsLi
                     if (sportArrayList.isNotEmpty())
                         this.view.displayPlayersList(sportArrayList)
                     else
-                        this.view.displayError(null)
+                        this.view.displayError(NoDataFoundException())
 
                     this.view.hideLoading()
 
                 },
                 { error ->
-                    this.view.displayError(error)
                     this.view.hideLoading()
+                    this.view.displayError(error)
                 })
 
         subscriptions.add(subscribe)

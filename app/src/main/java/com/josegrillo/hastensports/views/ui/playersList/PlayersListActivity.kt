@@ -62,6 +62,8 @@ class PlayersListActivity : BaseActivity(), PlayersListContract.View, SwipeRefre
 
     override fun displayError(error: Throwable?) {
 
+        super.displayErrorMessage(error)
+
     }
 
     override fun onRefresh() {

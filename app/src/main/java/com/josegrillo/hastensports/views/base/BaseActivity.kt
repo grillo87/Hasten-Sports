@@ -4,7 +4,9 @@ import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.josegrillo.hastensports.R
 import com.josegrillo.hastensports.base.HastenApplication
+import com.josegrillo.hastensports.utils.showToastMessage
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -35,16 +37,15 @@ open class BaseActivity : AppCompatActivity() {
 
     open fun displayErrorMessage(error: Throwable?) {
 
-        /*
-        var mensajeAMostrar = this.resources.getString(R.string.error_inesperado_titulo)
+        var errorMessage = this.resources.getString(R.string.unexpected_error_message)
         error?.let {
 
-            mensajeAMostrar = ErrorUtils.manejadorDeErrores(it, applicationContext)
+            errorMessage = error.message
 
         }
 
-        ToastUtils.showToastMessage(applicationContext, mensajeAMostrar)
-        */
+        this.showToastMessage(errorMessage)
+
 
     }
 
