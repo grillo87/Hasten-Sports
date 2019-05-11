@@ -19,21 +19,11 @@ open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectDependencies()
-        setStatusBar()
-        initializeSupportActionBar()
 
     }
 
-
-    private fun setStatusBar() {
-
-        //PantallaUtils.colorearStatusBar(this)
-
-    }
 
     open fun injectDependencies() {}
-
-    open fun initializeSupportActionBar() {}
 
     open fun displayErrorMessage(error: Throwable?) {
 
@@ -48,8 +38,6 @@ open class BaseActivity : AppCompatActivity() {
 
 
     }
-
-    //open fun obtenerApp(): HastenApplication = this.app
 
 
 }
