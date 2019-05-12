@@ -10,7 +10,6 @@ import com.josegrillo.hastensports.utils.showToastMessage
 
 open class BaseActivity : AppCompatActivity() {
 
-    var dialog: Dialog? = null
     val Activity.app: HastenApplication
         get() = application as HastenApplication
 
