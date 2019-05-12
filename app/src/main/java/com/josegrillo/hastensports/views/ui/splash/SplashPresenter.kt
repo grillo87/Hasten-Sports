@@ -15,9 +15,7 @@ class SplashPresenter @Inject constructor(val subscriptions: CompositeDisposable
     }
 
     override fun attach(view: SplashContract.View) {
-
         this.view = view
-
     }
 
 
